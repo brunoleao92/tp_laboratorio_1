@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1598878577 source:c:\users\lenovo\desktop\tp1_lab1\main.c
+	<stdio.h>
+	<stdlib.h>
+	"TP1.h"
+
+1598961527 c:\users\lenovo\desktop\tp1_lab1\tp1.h
+
+1598889557 source:c:\users\lenovo\desktop\tp1_lab1\tp1.c
+	<stdio.h>
+	<stdlib.h>
+	"TP1.h"
+
