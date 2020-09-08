@@ -9,6 +9,9 @@
  */
 
 void menu(void){
+
+    char n1Str[10];
+    char n2Str[10];
     float n1=0, n2=0;
     long factorialn1=0, factorialn2=0;
     int opc;
@@ -20,10 +23,12 @@ void menu(void){
         factorialn2=factorizar((long)n2);
         switch (opc){
           case 1: printf("Ingrese el valor del primer operando:\n");
-                  scanf("%f",&n1);
+                  scanf("%s",n1Str);
+                  n1=atof(n1Str);
                   break;
           case 2: printf("Ingrese el valor del segundo operando:\n");
-                  scanf("%f",&n2);
+                  scanf("%s",n2Str);
+                  n2=atof(n2Str);
                   break;
           case 3: printf("\na)Calcular suma %.1f+%.1f=%.1f", n1,n2,sumar(n1,n2));
                 printf("\nb)Calcular resta %.1f-%.1f=%.1f", n1,n2,restar(n1,n2));
@@ -34,8 +39,23 @@ void menu(void){
                 else{
                     printf("\nd)No se puede dividir por cero.");
                 }
-                printf("\ne)Calcular factoreo A=%1.f=%ld", n1,factorialn1);
-                printf("\nf)Calcular factoreo B=%1.f=%ld\n\n", n2,factorialn2);
+                if(esNumericoFlotante(n1Str)==2)
+                {
+                        printf("\ne)Calcular factoreo A=%1.f=%ld", n1,factorialn1);
+                }
+                else
+                {
+                    printf("\ne)No se puede factoriza con numeros flotantes.");
+                }
+                if(esNumericoFlotante(n2Str)==2)
+                {
+                        printf("\nf)Calcular factoreo B=%1.f=%ld\n\n", n2,factorialn2);
+                }
+                else
+                {
+                    printf("\ne)No se puede factoriza con numeros flotantes.");
+                }
+
                 system("pause");
                 break;
           case 4: printf("\na) El resultado de %.1f+%.1f es:%.1f ", n1,n2,sumar(n1,n2));
@@ -49,8 +69,23 @@ void menu(void){
                 else {
                     printf("\nd) No se puede dividir por cero.");
                 }
-                printf("\ne) El factorial de %.1f=%ld",n1,factorialn1);
-                printf("\nf) El factorial de %.1f=%ld\n\n", n2,factorialn2);
+                if(esNumericoFlotante(n1Str)==2)
+                    {
+                        printf("\ne) El factorial de %.1f=%ld",n1,factorialn1);
+                    }
+                    else
+                    {
+                        printf("\ne)Nose puede factorizar con numeros flotantes.");
+                    }
+                     if(esNumericoFlotante(n2Str)==2)
+                         {
+                            printf("\nf) El factorial de %.1f=%ld\n", n2,factorialn2);
+                         }
+                     else
+                        {
+                            printf("\nf)Nose puede factorizar con numeros flotantes.\n");
+                        }
+
                 system("pause");
                 break;
           case 5: printf("ADIOS!!!!!\n");
@@ -129,8 +164,7 @@ float division(float n1, float n2){
 /** \brief Realiza la operacion sumar
  *
  * \param Ingresa el numero que se quiere factorizar
- * \return 1, cuando el numero ingresado es igual o menor a 1
- * \return (n1*factorizar(n1-1)), cuando la factorizacion se realiza correctamente
+ * \return 1, cuando el numero ingresado es igual o menor a 1, o (n1*factorizar(n1-1)), cuando la factorizacion se realiza correctamente
  *
  */
 
@@ -143,4 +177,34 @@ long factorizar(long n1){
         return (n1*factorizar(n1-1));
     }
 
+}
+
+/** \brief Se utiliza para detectar si un numero es flotante o un entero
+ *
+ * \param Ingresa un numero en string que se quiera analizar
+ * \return [1]cuando es un numero flotante, [2] cuando es un numero entero [0] cuando se ingresa un caracter invalido.
+ *
+ */
+
+int esNumericoFlotante(char str[])
+{
+   int i=0;
+   int cantidadPuntos=0;
+   while(str[i] != '\0')
+   {
+       if (str[i] == '.' && cantidadPuntos == 0)
+       {
+           cantidadPuntos++;
+           i++;
+           continue;
+
+       }
+       if(str[i] < '0' || str[i] > '9')
+           return 0;
+       i++;
+   }
+   if(cantidadPuntos ==0){
+    return 2;
+   }
+   return 1;
 }
